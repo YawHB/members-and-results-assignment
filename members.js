@@ -6,26 +6,23 @@ export function construct(memberObj) {
         _competitive: memberObj.isCompetitive,
         _birthday: undefined,
         _age: undefined,
-        _junior: undefined,
-        _senior: undefined,
         _email: memberObj.email,
         _gender: memberObj.gender,
         _image: memberObj.image,
         _hasPayed: memberObj.hasPayed,
         _id: memberObj.id,
 
-
         name() {
             return `${this._firstName} ${this._lastName}`;
         },
 
-        getAge() {
+        age() {
             const today = new Date();
             const birthDateObj = new Date(memberObj.dateOfBirth);
 
             const age = today.getFullYear() - birthDateObj.getFullYear();
 
-            this._age = age;
+            return age
         },
 
         getBirthDate() {
@@ -41,19 +38,19 @@ export function construct(memberObj) {
         },
 
         isJunior() {
-            this._junior = this.age < 18;
+            return this._age > 18;
         },
         isSenior() {
-            this._senior = this.age > 18;
+            return this._age > 18;
         },
     };
 
     MemberObject.getBirthDate();
-    MemberObject.getAge();
+    MemberObject._age = MemberObject.age();
     MemberObject.isJunior();
     MemberObject.isSenior();
 
-    Object.defineProperties(MemberObject,{
+    Object.defineProperties(MemberObject, {
         _id: {
             writable: false,
         },
@@ -62,9 +59,8 @@ export function construct(memberObj) {
         },
         _image: {
             enumerable: false,
-        }
-    } )
-
+        },
+    });
 
     return MemberObject;
 }

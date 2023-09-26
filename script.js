@@ -11,6 +11,7 @@ async function initApp() {
     const membersJson = await getMembers();
     const membersFixed = membersToObjects(membersJson);
     console.log(membersFixed);
+    showMembers(membersFixed);
 }
 
 async function getMembers() {
@@ -25,5 +26,27 @@ function membersToObjects(membersJson) {
         const memberObj = members.construct(memberJson);
         fixedMembers.push(memberObj);
     }
-    return fixedMembers
+    return fixedMembers;
+}
+
+function showMembers(members) {
+    for (const member of members) {
+        insertMemberRow(member);
+    }
+    function insertMemberRow(member) {
+        const html = /*html*/ `
+        <tr>
+          <td>${member.name()}</td>
+          <td>${member._active ? 'Yes' : 'No'}</td>
+          <td>${member._birthday}</td>
+          <td>${member.age()}</td>
+          <td>${member.isSenior() ? "Senior" : "Junior"}</td>
+        </tr>
+    
+    `;
+
+        document
+            .querySelector("#members")
+            .insertAdjacentHTML("beforeend", html);
+    }
 }
