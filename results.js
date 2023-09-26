@@ -1,5 +1,5 @@
 export function construct(resultObj) {
-    const result = {
+    const resultObject = {
         _id: undefined,
         _competitionLocation: undefined,
         _competitionName: undefined,
@@ -9,6 +9,7 @@ export function construct(resultObj) {
         _memberId: undefined,
         _resultType: undefined,
         _time: undefined,
+        _member: undefined,
 
         setProperties() {
             this._id = resultObj.id;
@@ -39,9 +40,34 @@ export function construct(resultObj) {
         isTraining() {
             return (this._resultType = "training" ? true : false);
         },
-    };
-    result.setProperties();
-    result.timeToMilliseconds();
 
-    return result;
+        isCompetition() {
+            return (this._resultType = "competition" ? true : false);
+        },
+    };
+    resultObject.setProperties();
+    resultObject.timeToMilliseconds();
+
+        Object.defineProperties(resultObject, {
+            _id: {
+                writable: false,
+            },
+            setProperties: {
+                enumerable: false,
+            },
+            timeToMilliseconds: {
+                enumerable: false,
+            },
+            showTimeAsString: {
+                enumerable: false,
+            },
+            isTraining: {
+                enumerable: false,
+            },
+            isCompetition: {
+                enumerable: false,
+            },
+        });
+
+    return resultObject;
 }

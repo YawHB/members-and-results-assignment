@@ -12,6 +12,7 @@ export function construct(memberObj) {
         _gender: memberObj.gender,
         _image: memberObj.image,
         _hasPayed: memberObj.hasPayed,
+        _id: memberObj.id,
 
 
         name() {
@@ -24,10 +25,10 @@ export function construct(memberObj) {
 
             const age = today.getFullYear() - birthDateObj.getFullYear();
 
-            this.age = age;
+            this._age = age;
         },
 
-        getBirthdate() {
+        getBirthDate() {
             const inputDate = new Date(memberObj.dateOfBirth);
 
             const day = inputDate.getDate();
@@ -36,27 +37,27 @@ export function construct(memberObj) {
             });
             const year = inputDate.getFullYear();
 
-            this.birthday = `${day} ${month} ${year}`;
+            this._birthday = `${day} ${month} ${year}`;
         },
 
         isJunior() {
-            this.junior = this.age < 18;
+            this._junior = this.age < 18;
         },
         isSenior() {
-            this.senior = this.age > 18;
+            this._senior = this.age > 18;
         },
     };
 
-    MemberObject.getBirthdate();
-    MemberObject._age = getAge();
-    MemberObject._junior = isJunior();
-    MemberObject._senior = isSenior();
+    MemberObject.getBirthDate();
+    MemberObject.getAge();
+    MemberObject.isJunior();
+    MemberObject.isSenior();
 
     Object.defineProperties(MemberObject,{
         _id: {
             writable: false,
         },
-        _name: {
+        name: {
             enumerable: false,
         },
         _image: {
