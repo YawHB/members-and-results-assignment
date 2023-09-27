@@ -1,27 +1,16 @@
+import { findMemberById } from "./script.js";
+
 export function construct(resultObj) {
     const resultObject = {
-        _id: undefined,
-        _competitionLocation: undefined,
-        _competitionName: undefined,
-        _competitionPlacement: undefined,
-        _date: undefined,
-        _discipline: undefined,
-        _memberId: undefined,
-        _resultType: undefined,
-        _time: undefined,
-        _member: undefined,
-
-        setProperties() {
-            this._id = resultObj.id;
-            this._competitionLocation = resultObj.competitionLocation;
-            this._competitionName = resultObj.competitionName;
-            this._competitionPlacement = resultObj.competitionPlacement;
-            this._date = resultObj.date;
-            this._discipline = resultObj.discipline;
-            this._memberId = resultObj.memberId;
-            this._resultType = resultObj.resultType;
-            this._time = resultObj.time;
-        },
+        _id: resultObj.id,
+        _competitionLocation: resultObj.competitionLocation,
+        _competitionName: resultObj.competitionName,
+        _competitionPlacement: resultObj.competitionPlacement,
+        _date: resultObj.date,
+        _discipline: resultObj.discipline,
+        _memberId: resultObj.memberId,
+        _resultType: resultObj.resultType,
+        _time: resultObj.time,
 
         timeToMilliseconds() {
             const time = resultObj.time;
@@ -45,29 +34,34 @@ export function construct(resultObj) {
             return (this._resultType = "competition" ? true : false);
         },
     };
-    resultObject.setProperties();
-    resultObject.timeToMilliseconds();
 
-        Object.defineProperties(resultObject, {
-            _id: {
-                writable: false,
-            },
-            setProperties: {
-                enumerable: false,
-            },
-            timeToMilliseconds: {
-                enumerable: false,
-            },
-            showTimeAsString: {
-                enumerable: false,
-            },
-            isTraining: {
-                enumerable: false,
-            },
-            isCompetition: {
-                enumerable: false,
-            },
-        });
+    const memberFound = findMemberById(resultObject._memberId);
+    // console.log(memberFound);
+
+
+    Object.defineProperties(resultObject, {
+        _id: {
+            writable: false,
+        },
+        _member: {
+            value: memberFound,
+        },
+        setProperties: {
+            enumerable: false,
+        },
+        timeToMilliseconds: {
+            enumerable: false,
+        },
+        showTimeAsString: {
+            enumerable: false,
+        },
+        isTraining: {
+            enumerable: false,
+        },
+        isCompetition: {
+            enumerable: false,
+        },
+    });
 
     return resultObject;
 }
