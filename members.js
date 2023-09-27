@@ -6,10 +6,7 @@ export function construct(memberObj) {
         _competitive: memberObj.isCompetitive,
         _birthday: undefined,
         _age: undefined,
-        _email: memberObj.email,
-        _gender: memberObj.gender,
         _image: memberObj.image,
-        _hasPayed: memberObj.hasPayed,
         _id: memberObj.id,
 
         name() {
@@ -41,14 +38,12 @@ export function construct(memberObj) {
             return this._age > 18;
         },
         isSenior() {
-            return this._age > 18;
+            return !this.isJunior()
         },
     };
 
     MemberObject.getBirthDate();
     MemberObject._age = MemberObject.age();
-    MemberObject.isJunior();
-    MemberObject.isSenior();
 
     Object.defineProperties(MemberObject, {
         _id: {

@@ -3,9 +3,6 @@ import { findMemberById } from "./script.js";
 export function construct(resultObj) {
     const resultObject = {
         _id: resultObj.id,
-        _competitionLocation: resultObj.competitionLocation,
-        _competitionName: resultObj.competitionName,
-        _competitionPlacement: resultObj.competitionPlacement,
         _date: resultObj.date,
         _discipline: resultObj.discipline,
         _memberId: resultObj.memberId,
@@ -36,7 +33,6 @@ export function construct(resultObj) {
     };
 
     const memberFound = findMemberById(resultObject._memberId);
-    // console.log(memberFound);
 
 
     Object.defineProperties(resultObject, {
