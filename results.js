@@ -10,7 +10,7 @@ export function construct(resultObj) {
         _time: resultObj.time,
 
         timeToMilliseconds() {
-            const time = resultObj.time;
+            const time = this._time;
             const [minutes, seconds] = time.split(":").map(parseFloat);
             const milliseconds = (minutes * 60 + seconds) * 1000;
             return milliseconds;
