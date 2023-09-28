@@ -1,6 +1,7 @@
 import { initTabs } from "./tabs.js";
 import * as members from "./members.js";
 import * as results from "./results.js";
+import * as ListRenderer from "./listRenderer.js";
 
 window.addEventListener("load", initApp);
 
@@ -11,12 +12,14 @@ async function initApp() {
 
     const membersJson = await getData("members.json");
     membersFixed = membersToObjects(membersJson);
-    showMembers(membersFixed);
+    const listRenderer = ListRenderer.construct(membersFixed, "members");
+
+    // showMembers(membersFixed);
+    listRenderer.render();
 
     const resultsJson = await getData("results.json");
     const resultsFixed = resultsToObjects(resultsJson);
     showResults(resultsFixed);
-
 }
 
 async function getData(jsonData) {
@@ -124,9 +127,9 @@ function convertDate(dateValue) {
 }
 
 function findMemberById(id) {
-    const memberFound = membersFixed.find(member => member._id === id);
+    const memberFound = membersFixed.find((member) => member._id === id);
     // console.log(memberFound);
     return memberFound;
 }
 
-export { findMemberById };
+export { findMemberById, showMembers };
